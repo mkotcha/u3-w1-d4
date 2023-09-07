@@ -1,5 +1,6 @@
 import { Component } from "react";
 import CommentList from "./CommentList";
+import { Spinner } from "react-bootstrap";
 
 class CommentArea extends Component {
   state = {
@@ -51,7 +52,15 @@ class CommentArea extends Component {
     this.fetchComments();
   };
   render() {
-    return <CommentList comments={this.state.comments} id={this.props.id} comArea={this} />;
+    return (
+      <>
+        <div className="pt-3">
+          {this.state.isLoading && <Spinner animation="border" variant="warning" />}
+          <CommentList comments={this.state.comments} id={this.props.id} comArea={this} />
+        </div>
+        <div className="flex-grow-1"></div>
+      </>
+    );
   }
 }
 

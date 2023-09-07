@@ -79,7 +79,7 @@ class AddComment extends Component {
   render() {
     return (
       <>
-        <Button variant="primary" onClick={this.handleShow}>
+        <Button variant="primary" className="w-100 mt-2" onClick={this.handleShow}>
           add comment
         </Button>
 
