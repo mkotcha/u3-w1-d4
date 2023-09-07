@@ -7,7 +7,14 @@ class CommentArea extends Component {
     hasError: false,
     bookID: "",
     comments: [],
+    updated: 0,
   };
+
+  update = () => {
+    // this.setState({ updated: this.state.updated++ });
+    this.fetchComments();
+  };
+
   fetchComments = async () => {
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
     const options = {
@@ -44,7 +51,7 @@ class CommentArea extends Component {
     this.fetchComments();
   };
   render() {
-    return <CommentList comments={this.state.comments} id={this.props.id} />;
+    return <CommentList comments={this.state.comments} id={this.props.id} comArea={this} />;
   }
 }
 

@@ -7,10 +7,10 @@ const CommentList = props => {
     <>
       <ListGroup>
         {props.comments.map(comment => (
-          <SingleComment comment={comment} key={comment._id} />
+          <SingleComment comment={comment} key={comment._id} comArea={props.comArea} />
         ))}
       </ListGroup>
-      <AddComment id={props.id} />
+      <AddComment id={props.id} comArea={props.comArea} />
     </>
   );
 };

@@ -49,6 +49,8 @@ class AddComment extends Component {
           },
         });
 
+        this.props.comArea.update();
+
         const newReserv = await response.json();
 
         this.setState({

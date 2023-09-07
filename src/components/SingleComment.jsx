@@ -1,7 +1,7 @@
 import { Button, ListGroup } from "react-bootstrap";
 
-const deleteComment = async (event, id) => {
-  console.log("DELETE", id);
+const deleteComment = async (event, props) => {
+  console.log("DELETE", props.comment._id);
 
   const url = "https://striveschool-api.herokuapp.com/api/comments/";
   const options = {
@@ -13,8 +13,9 @@ const deleteComment = async (event, id) => {
   };
 
   try {
-    const response = await fetch(url + id, options);
+    const response = await fetch(url + props.comment._id, options);
     console.log(response);
+    props.comArea.update();
   } catch (err) {
     console.log(err);
   }
@@ -24,7 +25,7 @@ const SingleComment = props => {
   return (
     <ListGroup.Item className="d-flex">
       <span className="me-auto">{props.comment.comment}</span>
-      <Button variant="danger" size="sm" onClick={event => deleteComment(event, props.comment._id)}>
+      <Button variant="danger" size="sm" onClick={event => deleteComment(event, props)}>
         <i className="bi bi-trash"></i>
       </Button>
     </ListGroup.Item>
