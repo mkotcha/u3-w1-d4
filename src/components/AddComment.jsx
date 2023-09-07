@@ -45,7 +45,7 @@ class AddComment extends Component {
           comment: {
             comment: "",
             elementId: this.props.id,
-            rate: 0,
+            rate: 1,
           },
         });
 
@@ -56,7 +56,7 @@ class AddComment extends Component {
         this.setState({
           hasAlert: true,
           alert: {
-            message: "your comment " + newReserv._id + " is saved!",
+            message: "comment - " + newReserv.comment + " - added!",
             status: response.status,
             variant: "success",
           },
@@ -67,13 +67,13 @@ class AddComment extends Component {
           hasAlert: true,
           alert: { message: "Error data", status: response.status, variant: "danger" },
         });
-        setTimeout(() => this.setState({ hasAlert: false }), 2500);
+        setTimeout(() => this.setState({ hasAlert: false }), 2000);
       }
     } catch (err) {
       console.log(err);
     }
 
-    setTimeout(() => this.handleClose(), 2500);
+    setTimeout(() => this.handleClose(), 2000);
   };
 
   render() {
