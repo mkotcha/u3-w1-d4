@@ -25,13 +25,14 @@ class AddComment extends Component {
   };
 
   handleSubmit = async event => {
-    console.log(this.state.comment);
+    console.log(JSON.stringify(this.state.comment));
     event.preventDefault();
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
     const options = {
       method: "POST",
       body: JSON.stringify(this.state.comment),
       headers: {
+        "Content-Type": "application/json",
         Authorization:
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NTIyMGMwMzRmZjAwMTQwM2Y0Y2QiLCJpYXQiOjE2OTQwODk3MTgsImV4cCI6MTY5NTI5OTMxOH0.yy5_J1EHIdfBE0x6pZgPJ2RrplUDZE2vU6TvoY2MdDM",
       },
@@ -42,7 +43,6 @@ class AddComment extends Component {
       if (response.ok) {
         this.setState({
           comment: {
-            author: "",
             comment: "",
             elementId: this.props.id,
             rate: 0,
