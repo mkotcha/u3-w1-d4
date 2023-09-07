@@ -23,7 +23,7 @@ const deleteComment = async (event, props) => {
 
 const SingleComment = props => {
   return (
-    <ListGroup.Item className="d-flex">
+    <ListGroup.Item className="d-flex align-items-center">
       <span className="me-auto">{props.comment.comment}</span>
       <Button variant="danger" size="sm" onClick={event => deleteComment(event, props)}>
         <i className="bi bi-trash"></i>

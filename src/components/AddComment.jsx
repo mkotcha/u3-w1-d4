@@ -73,7 +73,7 @@ class AddComment extends Component {
       console.log(err);
     }
 
-    //this.handleClose();
+    setTimeout(() => this.handleClose(), 2500);
   };
 
   render() {
