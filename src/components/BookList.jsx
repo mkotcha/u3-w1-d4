@@ -68,9 +68,8 @@ class BookList extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevState.selected !== this.state.selected) {
-      console.log("prev ", prevState.selected);
-      console.log("now  ", this.state.selected);
+    if (prevState.category !== this.state.category) {
+      this.setState({ selected: "" });
     }
   };
 
