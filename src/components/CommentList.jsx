@@ -10,7 +10,7 @@ const CommentList = props => {
           <SingleComment comment={comment} key={comment._id} update={props.update} />
         ))}
       </ListGroup>
-      <AddComment id={props.id} update={props.update} />
+      <AddComment selected={props.selected} update={props.update} />
     </>
   );
 };

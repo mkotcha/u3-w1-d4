@@ -10,29 +10,23 @@ import scifi from "../data/scifi.json";
 import { Col, Container, Row } from "react-bootstrap";
 import SingleBook from "./SingleBook";
 import CommentArea from "./CommentArea";
-let categoryArr = null;
+let categoryArr = [];
 
 class BookList extends Component {
   state = {
     category: "scifi",
     filter: "",
     selected: "",
+    books: [],
   };
 
-  fakeFetch = category => {
-    this.setState({ category });
-    this.setState({ selected: "" });
+  fakeFetch = async category => {
+    await this.setState({ category });
+    await this.setBooks();
+    // this.setState({ selected: "" });
   };
 
-  fakeSearch = filter => {
-    this.setState({ filter });
-    this.setState({ selected: "" });
-  };
-  selectBook = id => {
-    this.setState({ selected: id });
-  };
-
-  render() {
+  setBooks = async () => {
     switch (this.state.category) {
       case "fantasy":
         categoryArr = fantasy;
@@ -57,6 +51,30 @@ class BookList extends Component {
 
     categoryArr = categoryArr.filter(elm => elm.title.toLowerCase().includes(this.state.filter.toLowerCase()) >= 1);
 
+    this.setState({ books: categoryArr });
+  };
+
+  fakeSearch = filter => {
+    this.setState({ filter });
+    // this.setState({ selected: "" });
+  };
+
+  selectBook = id => {
+    this.setState({ selected: id });
+  };
+
+  componentDidMount = () => {
+    this.fakeFetch("horror");
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.selected !== this.state.selected) {
+      console.log("prev ", prevState.selected);
+      console.log("now  ", this.state.selected);
+    }
+  };
+
+  render() {
     return (
       <>
         <MyNav fakeSearch={this.fakeSearch} />
@@ -64,8 +82,8 @@ class BookList extends Component {
         <Container>
           <Row>
             <Col>
-              <Row xs={2} md={3} lg={4} xl={5} xxl={6} className="g-4">
-                {categoryArr.map((book, index) => (
+              <Row xs={1} md={2} lg={3} xl={4} xxl={5} className="g-4">
+                {this.state.books.map((book, index) => (
                   <SingleBook
                     book={book}
                     key={book.asin + index}
@@ -76,7 +94,7 @@ class BookList extends Component {
                 ))}
               </Row>
             </Col>
-            <Col sm="3">{this.state.selected && <CommentArea id={this.state.selected} />}</Col>
+            <Col sm="3">{this.state.selected && <CommentArea selected={this.state.selected} />}</Col>
           </Row>
         </Container>
       </>

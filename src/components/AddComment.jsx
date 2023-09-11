@@ -4,11 +4,11 @@ import { Alert, Button, Form, Modal } from "react-bootstrap";
 class AddComment extends Component {
   state = {
     hasAlert: false,
-    alert: { message: "", status: "", variant: "success" },
+    alert: { message: "", status: "", variant: "" },
     modalShow: false,
     comment: {
       comment: "",
-      elementId: this.props.id,
+      elementId: "",
       rate: 1,
     },
   };
@@ -16,6 +16,7 @@ class AddComment extends Component {
   handleClose = () => {
     this.setState({ modalShow: false });
   };
+
   handleShow = () => {
     this.setState({ modalShow: true });
   };
@@ -25,10 +26,12 @@ class AddComment extends Component {
   };
 
   handleSubmit = async event => {
-    console.log(JSON.stringify(this.state.comment));
     event.preventDefault();
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
-    const options = {
+    let options = {};
+
+    console.log(JSON.stringify(this.state.comment));
+    options = {
       method: "POST",
       body: JSON.stringify(this.state.comment),
       headers: {
@@ -37,6 +40,7 @@ class AddComment extends Component {
           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NTIyMGMwMzRmZjAwMTQwM2Y0Y2QiLCJpYXQiOjE2OTQwODk3MTgsImV4cCI6MTY5NTI5OTMxOH0.yy5_J1EHIdfBE0x6pZgPJ2RrplUDZE2vU6TvoY2MdDM",
       },
     };
+
     try {
       const response = await fetch(url, options);
       console.log(response);
@@ -44,7 +48,7 @@ class AddComment extends Component {
         this.setState({
           comment: {
             comment: "",
-            elementId: this.props.id,
+            elementId: this.props.selected,
             rate: 1,
           },
         });
@@ -74,6 +78,16 @@ class AddComment extends Component {
     }
 
     setTimeout(() => this.handleClose(), 2000);
+  };
+
+  componentDidUpdate = pervProps => {
+    if (pervProps.selected !== this.state.comment.elementId) {
+      this.setState({ comment: { ...this.state.comment, elementId: this.props.selected } });
+    }
+  };
+
+  componentDidMount = () => {
+    this.setState({ comment: { ...this.state.comment, elementId: this.props.selected } });
   };
 
   render() {

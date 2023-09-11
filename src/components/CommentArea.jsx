@@ -28,7 +28,7 @@ class CommentArea extends Component {
     try {
       const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json().then(resp => resp.filter(elm => elm.elementId === this.props.id));
+        const data = await response.json().then(resp => resp.filter(elm => elm.elementId === this.props.selected));
         this.setState({ comments: data });
       } else {
         this.setState({ hasError: true });
@@ -46,7 +46,7 @@ class CommentArea extends Component {
   };
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.id !== this.props.id) this.fetchComments();
+    if (prevProps.selected !== this.props.selected) this.fetchComments();
   };
 
   render() {
@@ -54,7 +54,7 @@ class CommentArea extends Component {
       <>
         <div>
           {this.state.isLoading && <Spinner animation="border" variant="warning" />}
-          <CommentList comments={this.state.comments} id={this.props.id} update={this.update} />
+          <CommentList comments={this.state.comments} selected={this.props.selected} update={this.update} />
         </div>
         <div className="flex-grow-1"></div>
       </>
