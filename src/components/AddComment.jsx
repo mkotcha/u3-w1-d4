@@ -49,14 +49,14 @@ class AddComment extends Component {
           },
         });
 
-        this.props.comArea.update();
-
-        const newReserv = await response.json();
+        const newComment = await response.json();
+        // this.props.mod(newComment._id);
+        this.props.update();
 
         this.setState({
           hasAlert: true,
           alert: {
-            message: "comment - " + newReserv.comment + " - added!",
+            message: "comment - " + newComment.comment + " - added!",
             status: response.status,
             variant: "success",
           },

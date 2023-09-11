@@ -8,12 +8,15 @@ class CommentArea extends Component {
     hasError: false,
     bookID: "",
     comments: [],
-    updated: 0,
+    modded: "",
   };
 
   update = () => {
-    // this.setState({ updated: this.state.updated++ });
     this.fetchComments();
+  };
+
+  setModded = id => {
+    this.setState({ modded: id });
   };
 
   fetchComments = async () => {
@@ -28,21 +31,16 @@ class CommentArea extends Component {
     this.setState({ isLoading: true });
     console.log("FETCH comments");
     try {
-      const response = await fetch(url + this.props.id, options);
-
+      const response = await fetch(url, options);
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json().then(resp => resp.filter(elm => elm.elementId === this.props.id));
         this.setState({ comments: data });
-        // ogni volta che cambia lo stato, render() viene invocato di nuovo
-        console.log("setState");
       } else {
-        console.log("setState");
         this.setState({ hasError: true });
       }
     } catch (error) {
       console.log(error);
     } finally {
-      // il metodo finally verrà eseguito SEMPRE e IN OGNI CASO, torna utile per qualcosa che debba avvenire sempre e comunque (sia in condizioni positive che negative)
       this.setState({ isLoading: false });
     }
   };
@@ -51,12 +49,17 @@ class CommentArea extends Component {
     console.log("COMPONENT DID MOUNT");
     this.fetchComments();
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.id !== this.props.id) this.fetchComments();
+  };
+
   render() {
     return (
       <>
-        <div className="pt-3">
+        <div>
           {this.state.isLoading && <Spinner animation="border" variant="warning" />}
-          <CommentList comments={this.state.comments} id={this.props.id} comArea={this} />
+          <CommentList comments={this.state.comments} id={this.props.id} update={this.update} />
         </div>
         <div className="flex-grow-1"></div>
       </>

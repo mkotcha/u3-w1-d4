@@ -14,10 +14,11 @@ const deleteComment = async (event, props) => {
 
   try {
     const response = await fetch(url + props.comment._id, options);
-    console.log(response);
-    props.comArea.update();
-  } catch (err) {
-    console.log(err);
+    if (response.ok) {
+      props.update();
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
