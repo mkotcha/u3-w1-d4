@@ -8,15 +8,10 @@ class CommentArea extends Component {
     hasError: false,
     bookID: "",
     comments: [],
-    modded: "",
   };
 
   update = () => {
     this.fetchComments();
-  };
-
-  setModded = id => {
-    this.setState({ modded: id });
   };
 
   fetchComments = async () => {

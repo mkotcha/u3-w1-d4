@@ -19,12 +19,15 @@ class BookList extends Component {
     selected: "",
   };
 
-  filter = event => {
-    event.preventDefault();
-    if (event.type === "change") this.setState({ filter: event.target.value });
-    else this.setState({ filter: event.target.filter.value });
+  fakeFetch = category => {
+    this.setState({ category });
+    this.setState({ selected: "" });
   };
 
+  fakeSearch = filter => {
+    this.setState({ filter });
+    this.setState({ selected: "" });
+  };
   selectBook = id => {
     this.setState({ selected: id });
   };
@@ -56,8 +59,8 @@ class BookList extends Component {
 
     return (
       <>
-        <MyNav classIstance={this} />
-        <Jumbo classIstance={this} />
+        <MyNav fakeSearch={this.fakeSearch} />
+        <Jumbo fakeFetch={this.fakeFetch} />
         <Container>
           <Row>
             <Col>
