@@ -94,7 +94,13 @@ class BookList extends Component {
                 ))}
               </Row>
             </Col>
-            <Col sm="3">{this.state.selected && <CommentArea selected={this.state.selected} />}</Col>
+            <Col sm="3">
+              {this.state.selected ? (
+                <CommentArea selected={this.state.selected} />
+              ) : (
+                <p>Select a book to view comments</p>
+              )}
+            </Col>
           </Row>
         </Container>
       </>
