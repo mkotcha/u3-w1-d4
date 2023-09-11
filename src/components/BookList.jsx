@@ -10,18 +10,48 @@ import scifi from "../data/scifi.json";
 import { Col, Container, Row } from "react-bootstrap";
 import SingleBook from "./SingleBook";
 import CommentArea from "./CommentArea";
-let categoryArr = null;
 
 class BookList extends Component {
   state = {
     category: "scifi",
     filter: "",
     selected: "",
+    books: [],
   };
 
   fakeFetch = category => {
     this.setState({ category });
     this.setState({ selected: "" });
+
+    switch (category) {
+      case "fantasy":
+        this.setState({ books: fantasy });
+        break;
+      case "history":
+        this.setState({ books: history });
+        break;
+      case "horror":
+        this.setState({ books: horror });
+        break;
+      case "romance":
+        this.setState({ books: romance });
+        break;
+      case "scifi":
+        this.setState({ books: scifi });
+        break;
+
+      default:
+        this.setState({ books: [...fantasy, ...history, ...horror, ...romance, ...scifi] });
+        break;
+    }
+
+    
+    const filtered = await this.state.books.filter(
+      elm => elm.title.toLowerCase().includes(this.state.filter.toLowerCase()) >= 1
+    );
+    console.log(this.state.books);
+    //   //   this.setState({
+    //   //     books: this.state.books.filter(elm => elm.title.toLowerCase().includes(this.state.filter.toLowerCase()) >= 1),
   };
 
   fakeSearch = filter => {
@@ -32,31 +62,11 @@ class BookList extends Component {
     this.setState({ selected: id });
   };
 
+  componentDidMount = () => {
+    this.fakeFetch("horror");
+  };
+
   render() {
-    switch (this.state.category) {
-      case "fantasy":
-        categoryArr = fantasy;
-        break;
-      case "history":
-        categoryArr = history;
-        break;
-      case "horror":
-        categoryArr = horror;
-        break;
-      case "romance":
-        categoryArr = romance;
-        break;
-      case "scifi":
-        categoryArr = scifi;
-        break;
-
-      default:
-        categoryArr = [...fantasy, ...history, ...horror, ...romance, ...scifi];
-        break;
-    }
-
-    categoryArr = categoryArr.filter(elm => elm.title.toLowerCase().includes(this.state.filter.toLowerCase()) >= 1);
-
     return (
       <>
         <MyNav fakeSearch={this.fakeSearch} />
@@ -65,7 +75,7 @@ class BookList extends Component {
           <Row>
             <Col>
               <Row xs={2} md={3} lg={4} xl={5} xxl={6} className="g-4">
-                {categoryArr.map((book, index) => (
+                {this.state.books.map((book, index) => (
                   <SingleBook
                     book={book}
                     key={book.asin + index}
