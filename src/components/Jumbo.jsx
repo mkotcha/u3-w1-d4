@@ -2,7 +2,6 @@ import { Container, Dropdown } from "react-bootstrap";
 
 const setCategory = (event, fetch, category) => {
   fetch(category);
-  console.log(fetch);
 };
 
 const Jumbo = props => {

@@ -14,16 +14,14 @@ let categoryArr = [];
 
 class BookList extends Component {
   state = {
-    category: "scifi",
+    category: "",
     filter: "",
     selected: "",
     books: [],
   };
 
   fakeFetch = async category => {
-    await this.setState({ category });
-    await this.setBooks();
-    // this.setState({ selected: "" });
+    this.setState({ category }, this.setBooks);
   };
 
   setBooks = async () => {
@@ -55,7 +53,7 @@ class BookList extends Component {
   };
 
   fakeSearch = filter => {
-    this.setState({ filter });
+    this.setState({ filter }, this.setBooks);
     // this.setState({ selected: "" });
   };
 

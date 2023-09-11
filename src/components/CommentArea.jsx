@@ -24,7 +24,6 @@ class CommentArea extends Component {
     };
 
     this.setState({ isLoading: true });
-    console.log("FETCH comments");
     try {
       const response = await fetch(url, options);
       if (response.ok) {
@@ -41,7 +40,6 @@ class CommentArea extends Component {
   };
 
   componentDidMount = () => {
-    console.log("COMPONENT DID MOUNT");
     this.fetchComments();
   };
 

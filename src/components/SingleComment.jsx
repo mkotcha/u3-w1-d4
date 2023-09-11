@@ -1,8 +1,6 @@
 import { Button, ListGroup } from "react-bootstrap";
 
 const deleteComment = async (event, props) => {
-  console.log("DELETE", props.comment._id);
-
   const url = "https://striveschool-api.herokuapp.com/api/comments/";
   const options = {
     method: "DELETE",

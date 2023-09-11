@@ -30,7 +30,6 @@ class AddComment extends Component {
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
     let options = {};
 
-    console.log(JSON.stringify(this.state.comment));
     options = {
       method: "POST",
       body: JSON.stringify(this.state.comment),
@@ -43,7 +42,6 @@ class AddComment extends Component {
 
     try {
       const response = await fetch(url, options);
-      console.log(response);
       if (response.ok) {
         this.setState({
           comment: {
