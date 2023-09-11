@@ -109,16 +109,21 @@ class AddComment extends Component {
             )}
             <Form id="addComment">
               <Form.Group>
+                <Form.Label>Rating</Form.Label>
+                <Form.Range
+                  min="1"
+                  max="5"
+                  step="1"
+                  value={this.state.comment.rate}
+                  onChange={event => this.handleChange("rate", event.target.value)}
+                />
                 <Form.Label>Comment</Form.Label>
                 <Form.Control
                   type="text"
                   as="textarea"
                   placeholder="your comment..."
                   value={this.state.comment.comment}
-                  onChange={event =>
-                    // this.setState({ reservation: { ...this.state.reservation, name: event.target.value } })
-                    this.handleChange("comment", event.target.value)
-                  }
+                  onChange={event => this.handleChange("comment", event.target.value)}
                   required
                 />
               </Form.Group>
