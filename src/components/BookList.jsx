@@ -95,7 +95,7 @@ class BookList extends Component {
               {this.state.selected ? (
                 <CommentArea selected={this.state.selected} />
               ) : (
-                <p>Select a book to view comments</p>
+                <h5>Select a book to view comments</h5>
               )}
             </Col>
           </Row>
