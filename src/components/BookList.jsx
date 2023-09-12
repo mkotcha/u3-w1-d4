@@ -92,11 +92,13 @@ class BookList extends Component {
               </Row>
             </Col>
             <Col sm="3">
-              {this.state.selected ? (
-                <CommentArea selected={this.state.selected} />
-              ) : (
-                <h5>Select a book to view comments</h5>
-              )}
+              <div className="sticky-top vh-100 overflow-y-scroll">
+                {this.state.selected ? (
+                  <CommentArea selected={this.state.selected} />
+                ) : (
+                  <h5>Select a book to view comments</h5>
+                )}
+              </div>
             </Col>
           </Row>
         </Container>
