@@ -51,6 +51,7 @@ class CommentArea extends Component {
     return (
       <>
         <div>
+          {this.state.comments.length === 0 && <h5>There are no comments yet...</h5>}
           {this.state.isLoading && <Spinner animation="border" variant="warning" />}
           <CommentList comments={this.state.comments} selected={this.props.selected} update={this.update} />
         </div>
