@@ -6,7 +6,6 @@ class CommentArea extends Component {
   state = {
     isLoading: true,
     hasError: false,
-    bookID: "",
     comments: [],
   };
 

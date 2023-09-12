@@ -79,7 +79,7 @@ class AddComment extends Component {
   };
 
   componentDidUpdate = pervProps => {
-    if (pervProps.selected !== this.state.comment.elementId) {
+    if (pervProps.selected !== this.props.selected) {
       this.setState({ comment: { ...this.state.comment, elementId: this.props.selected } });
     }
   };
